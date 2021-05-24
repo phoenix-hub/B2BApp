@@ -109,7 +109,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="account_setting_or_edit_profile - Copy.html" />
     <Content Include="Content\Banner\baner-default.jpg" />
     <Content Include="faq.aspx" />
     <Content Include="favicon.ico" />

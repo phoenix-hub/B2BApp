@@ -108,7 +108,7 @@
                         <div class="row mb-3 px-3" style="text-align: center !important; margin: 0 30% 0 30%;">
 
                             <button id="Save" type="submit" runat="server" onserverclick="btnSave_Click" class="btn text-center" style="background-color: #3D8080; color: white; width: 200px;">
-                                Login
+                                Save
                             </button>
                         </div>
                         <br />

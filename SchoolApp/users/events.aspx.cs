@@ -52,6 +52,11 @@ namespace SchoolApp.users
                     {
                         keyfield="@EMID",
                         valfield=lblEMId.Text
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@UCrBy",
+                        valfield= Convert.ToString(Session["UEmail"])
                     }
                 };
 
@@ -283,6 +288,11 @@ namespace SchoolApp.users
                     {
                         keyfield="@ShortOrder",
                         valfield=shortorder
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@UCrBy",
+                        valfield= Convert.ToString(Session["UEmail"])
                     }
                 };
 
@@ -389,6 +399,11 @@ namespace SchoolApp.users
                     {
                         keyfield="@ShortOrder",
                         valfield=shortorder
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@UCrBy",
+                        valfield= Convert.ToString(Session["UEmail"])
                     }
                 };
 
