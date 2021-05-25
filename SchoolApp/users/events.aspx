@@ -148,7 +148,7 @@
                                         <asp:Label runat="server" ID="lblEMCity" Text='<%# Eval("EMCity") %>' />
                                     </a></td>
                                 <td scope="col">
-                                    <a class="btn btn-info" href="attendee.aspx?id=<%# Eval("EMID") %>">View
+                                    <a  target="_blank" class="btn btn-info" href="attendee.aspx?id=<%# Eval("EMID") %>">View
                                     </a></td>
                                 <td scope="col">
                                     <asp:Button ID="btnShow" OnClick="btnShow_Click" class="btn btn-primary" runat="server" Text="Edit" /></td>

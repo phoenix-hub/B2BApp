@@ -35,6 +35,9 @@ namespace SchoolApp.users
         {
             try
             {
+                if (Request.QueryString["id"] != null)
+                    assignId = Convert.ToString(Request.QueryString["id"]);
+
                 #region Bind Controls for edit operations
 
                 List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
@@ -58,6 +61,11 @@ namespace SchoolApp.users
                     {
                         keyfield="@EMID",
                         valfield=assignId
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@UCrBy",
+                        valfield=Convert.ToString(Session["UEmail"])
                     }
                 };
 

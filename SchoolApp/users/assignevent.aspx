@@ -97,23 +97,28 @@
                                                 <label for="inputCompanyName" class="col-sm-2 col-form-label">Attendee Company Name</label>
                                                 <div class="col-sm-10">
                                                     <asp:TextBox ID="txtCompanyName" runat="server" class="form-control" placeholder="Company Name"></asp:TextBox>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" Display="Dynamic" ControlToValidate="txtCompanyName" runat="server" ErrorMessage="Please enter Company Name" Style="font-size: 11px; color: red; text-transform: capitalize;" ValidationGroup="SingleAttendee"></asp:RequiredFieldValidator>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                                 <div class="col-sm-10">
                                                     <asp:TextBox ID="txtName" runat="server" class="form-control" placeholder="Name"></asp:TextBox>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" ControlToValidate="txtName" runat="server" ErrorMessage="Please enter Attendee Name" Style="font-size: 11px; color: red; text-transform: capitalize;" ValidationGroup="SingleAttendee"></asp:RequiredFieldValidator>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputEmailId" class="col-sm-2 col-form-label">Email ID</label>
                                                 <div class="col-sm-10">
                                                     <asp:TextBox ID="txtEmailId" runat="server" class="form-control" placeholder="Email ID"></asp:TextBox>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" ControlToValidate="txtEmailId" runat="server" ErrorMessage="Please enter Email Id" Style="font-size: 11px; color: red; text-transform: capitalize;" ValidationGroup="SingleAttendee"></asp:RequiredFieldValidator>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-sm-10">
-                                                    <button type="submit" runat="server" id="btnSingleAttendee" onserverclick="btnSingleAttendee_ServerClick" class="btn btn-primary">Add Attendee</button>
+                                                    <button type="submit" validationgroup="SingleAttendee" runat="server" id="btnSingleAttendee" onserverclick="btnSingleAttendee_ServerClick" class="btn btn-primary">Add Attendee</button>
+                                                    <br />
+                                                    <asp:ValidationSummary ID="ValidationSummary1" Style="font-size: 11px; color: red; text-transform: capitalize;" ValidationGroup="SingleAttendee" runat="server" />
                                                 </div>
                                             </div>
 

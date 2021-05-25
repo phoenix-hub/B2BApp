@@ -104,6 +104,13 @@ namespace SchoolApp.users
                     Repeater1.DataSource = dt;
                     Repeater1.DataBind();
                 }
+                else
+                {
+                    lblError.Text = "No Record found.";
+                    errordiv.Attributes.Remove("class");
+                    errordiv.Attributes.Add("class", "alert alert-primary");
+                    errordiv.Visible = true;
+                }
             }
             catch (Exception)
             {

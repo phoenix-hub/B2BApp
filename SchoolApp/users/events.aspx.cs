@@ -307,6 +307,12 @@ namespace SchoolApp.users
             }
             else
             {
+
+                lblError.Text = "No Record found.";
+                errordiv.Attributes.Remove("class");
+                errordiv.Attributes.Add("class", "alert alert-primary");
+                errordiv.Visible = true;
+
                 Repeater1.DataSource = null;
                 Repeater1.DataBind();
             }
