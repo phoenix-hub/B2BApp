@@ -35,6 +35,9 @@ namespace SchoolApp.users
         {
             try
             {
+                lblError.Text = "";
+                errordiv.Visible = false;
+
                 if (Request.QueryString["id"] != null)
                     assignId = Convert.ToString(Request.QueryString["id"]);
 
@@ -105,6 +108,9 @@ namespace SchoolApp.users
         {
             try
             {
+                lblError.Text = "";
+                errordiv.Visible = false;
+
                 #region Bind Controls for edit operations
                 assignId = Convert.ToString(Request.QueryString["id"]);
                 List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
@@ -169,6 +175,8 @@ namespace SchoolApp.users
 
         protected void btnImportAttendeeFromFile_ServerClick(object sender, EventArgs e)
         {
+            lblError.Text = "";
+            errordiv.Visible = false;
             InsertExcelRecords(ref fileUTlicns);
         }
 
@@ -198,7 +206,7 @@ namespace SchoolApp.users
                             sqlcon.Open();
                             using (SqlBulkCopy bulkCopy = new SqlBulkCopy(sqlcon))
                             {
-                                bulkCopy.DestinationTableName = "xyzdb.dbo.Attendee";
+                                bulkCopy.DestinationTableName = Convert.ToString(ConfigurationManager.AppSettings["AttendeeTableName"]);
 
                                 SqlBulkCopyColumnMapping EACN = new SqlBulkCopyColumnMapping("EACN", "EACN");
                                 bulkCopy.ColumnMappings.Add(EACN);
@@ -229,16 +237,11 @@ namespace SchoolApp.users
                                 {
                                     throw ex;
                                 }
-                                finally
-                                {
-
-                                }
                             }
                         }
                         dr.Close();
                         dr.Dispose();
                     }
-                    Response.Write("Upload Successfull!");
                 }
                 catch (Exception ex)
                 {
