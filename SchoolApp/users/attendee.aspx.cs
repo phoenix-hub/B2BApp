@@ -101,11 +101,17 @@ namespace SchoolApp.users
 
                 if (dt.Rows.Count > 0)
                 {
+                    lblError.Text = "";
+                    errordiv.Visible = false;
+
                     Repeater1.DataSource = dt;
                     Repeater1.DataBind();
                 }
                 else
                 {
+                    Repeater1.DataSource = null;
+                    Repeater1.DataBind();
+
                     lblError.Text = "No Record found.";
                     errordiv.Attributes.Remove("class");
                     errordiv.Attributes.Add("class", "alert alert-primary");
@@ -148,6 +154,13 @@ namespace SchoolApp.users
                     lblError.Text = "Attendee Deleted.";
                     errordiv.Attributes.Remove("class");
                     errordiv.Attributes.Add("class", "alert alert-success");
+                    errordiv.Visible = true;
+                }
+                else
+                { 
+                    lblError.Text = "Something went wrong. Please contact to admin.";
+                    errordiv.Attributes.Remove("class");
+                    errordiv.Attributes.Add("class", "alert alert-danger");
                     errordiv.Visible = true;
                 }
             }

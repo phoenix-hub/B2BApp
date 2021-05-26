@@ -42,31 +42,31 @@ namespace SchoolApp.users
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// btnShowPopupAdd control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowPopupAdd;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// Button1 control.
+        /// errordiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl errordiv;
 
         /// <summary>
-        /// ModalPopupExtender3 control.
+        /// lblError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupExtender3;
+        protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
         /// Repeater1 control.
@@ -105,58 +105,67 @@ namespace SchoolApp.users
         protected global::System.Web.UI.WebControls.Panel pnlpopup;
 
         /// <summary>
-        /// lblID control.
+        /// div1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblID;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div1;
 
         /// <summary>
-        /// lblusername control.
+        /// lblformHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblusername;
+        protected global::System.Web.UI.WebControls.Label lblformHeader;
 
         /// <summary>
-        /// txtfname control.
+        /// errordivForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtfname;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl errordivForm;
 
         /// <summary>
-        /// txtlname control.
+        /// lblErrorForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtlname;
+        protected global::System.Web.UI.WebControls.Label lblErrorForm;
 
         /// <summary>
-        /// txtCity control.
+        /// drpStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCity;
+        protected global::System.Web.UI.WebControls.DropDownList drpStatus;
 
         /// <summary>
-        /// txtDesg control.
+        /// rfvDrpstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDesg;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDrpstatus;
+
+        /// <summary>
+        /// txtRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
 
         /// <summary>
         /// btnUpdate control.
@@ -175,5 +184,14 @@ namespace SchoolApp.users
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
+
+        /// <summary>
+        /// hdnUpdateid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnUpdateid;
     }
 }
