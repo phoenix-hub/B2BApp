@@ -148,7 +148,7 @@
                                         <asp:Label runat="server" ID="lblEMCity" Text='<%# Eval("EMCity") %>' />
                                     </a></td>
                                 <td scope="col">
-                                    <a  target="_blank" class="btn btn-info" href="attendee.aspx?id=<%# Eval("EMID") %>">View
+                                    <a target="_blank" class="btn btn-info" href="attendee.aspx?id=<%# Eval("EMID") %>">View
                                     </a></td>
                                 <td scope="col">
                                     <asp:Button ID="btnShow" OnClick="btnShow_Click" class="btn btn-primary" runat="server" Text="Edit" /></td>
@@ -228,8 +228,11 @@
                     </div>
                     <div class="col-md-6">
                         <label class="labels">
-                            Time</label>
-                        <asp:TextBox ID="txtEMTime" runat="server" class="form-control" placeholder="Time"></asp:TextBox>
+                            Time
+                             <small style="color: red;">Use format : HH:MM:SS
+                             </small>
+                        </label>
+                        <asp:TextBox ID="txtEMTime" runat="server" class="form-control" placeholder="Use format : HH:MM:SS"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" Display="Dynamic" ControlToValidate="txtEMTime" runat="server" ErrorMessage="Time" Style="font-size: 11px; color: red; text-transform: capitalize;" ValidationGroup="formprofile"></asp:RequiredFieldValidator>
                     </div>
                 </div>
@@ -322,7 +325,7 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <button type="submit" runat="server" validationgroup="formprofile" onserverclick="Save_ServerClick" id="Save" name="submit" class="btn btn-primary">Create</button>
+                    <asp:Button ID="Save" runat="server" Text="Save" ValidationGroup="formprofile" class="btn btn-secondary" OnClick="Save_ServerClick" />
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-secondary" />
                 </div>
             </div>

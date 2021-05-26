@@ -24,6 +24,7 @@ namespace SchoolApp.users
         protected void btnShow_Click(object sender, EventArgs e)
         {
             lblformHeader.Text = "Edit";
+            Save.Text = "Update";
             var btn = (Button)sender;
             var item = (RepeaterItem)btn.NamingContainer;
             var lblEMId = (Label)item.FindControl("lblEMID");
@@ -118,6 +119,7 @@ namespace SchoolApp.users
 
         protected void Save_ServerClick(object sender, EventArgs e)
         {
+            ClearForm();
             lblErrorForm.Text = "";
             errordivForm.Visible = false;
             try
@@ -444,6 +446,10 @@ namespace SchoolApp.users
 
         protected void btnShowPopupAdd_Click(object sender, EventArgs e)
         {
+            ClearForm();
+
+            Save.Text = "Save";
+
             lblErrorForm.Text = "";
             errordivForm.Visible = false;
             lblformHeader.Text = "New";
