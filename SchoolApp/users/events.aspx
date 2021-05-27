@@ -194,7 +194,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">
                         <asp:Label ID="lblformHeader" runat="server" Text=""></asp:Label>
-                        &nbsp; Event </h4>
+                        Event </h4>
 
                     <div class="form-inline ml-auto">
 
@@ -349,7 +349,7 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <asp:Button ID="Save" runat="server" Text="Save" ValidationGroup="formprofile" class="btn btn-success" OnClick="Save_ServerClick" />
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-secondary" />
+                    <asp:Button ID="btnCancel" runat="server" OnClick="btnCancel_Click" Text="Cancel" class="btn btn-secondary" />
                 </div>
             </div>
         </div>

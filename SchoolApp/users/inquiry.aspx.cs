@@ -326,13 +326,7 @@ namespace SchoolApp.users
             //    }
             //}
         }
-        protected void btnClosePanelIcon_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-            ModalPopupExtender1.Hide();
-        }
-
-
+         
         protected void btnAddInquiry_Click(object sender, EventArgs e)
         {
             ClearForm();
@@ -356,6 +350,44 @@ namespace SchoolApp.users
             drpStatus.SelectedValue = "In-Progress";
             txtRemarks.Text = "";
             ModalPopupExtender1.Show();
+        }
+
+        protected bool IsFormValid()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(CompanyName.Text.Trim()))
+                {
+                    throw new Exception("");
+                }
+                if (!string.IsNullOrEmpty(CompanyName.Text.Trim()))
+                {
+                    throw new Exception("");
+                }
+                if (!string.IsNullOrEmpty(CompanyName.Text.Trim()))
+                {
+                    throw new Exception("");
+                }
+                if (!string.IsNullOrEmpty(CompanyName.Text.Trim()))
+                {
+                    throw new Exception("");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return true;
+        }
+       
+        protected void btnClosePanelIcon_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("inquiry?isactive=inquiry");
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("inquiry?isactive=inquiry");
         }
     }
 }

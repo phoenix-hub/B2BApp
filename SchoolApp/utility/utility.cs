@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data; 
+using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
-using System.Linq; 
+using System.Linq;
 
 namespace SchoolApp.SchoolAppUtility
 {
@@ -14,13 +14,13 @@ namespace SchoolApp.SchoolAppUtility
         public string valfield { get; set; }
     }
     public class AppUtility
-    {  
+    {
 
         string sqlcon = ConfigurationManager.ConnectionStrings["sqlcon"].ToString();
 
         public SqlConnection GetConnection()
         {
-            return new SqlConnection(ConfigurationManager.ConnectionStrings["sqlcon"].ToString()); 
+            return new SqlConnection(ConfigurationManager.ConnectionStrings["sqlcon"].ToString());
         }
 
         private Random random = new Random();
@@ -92,6 +92,34 @@ namespace SchoolApp.SchoolAppUtility
                 throw ex;
             }
         }
-         
+
+        public string GetScalerValue(string spname, List<AppKeyValueParam> param)
+        {
+            try
+            {
+                using (var con = new SqlConnection(sqlcon))
+                {
+                    using (var cmd = new SqlCommand(spname, con))
+                    {
+                        foreach (AppKeyValueParam item in param)
+                        {
+                            cmd.Parameters.AddWithValue(item.keyfield.ToString(), item.valfield.ToString().Trim());
+                        }
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        con.Open();
+                        string scalerValue = Convert.ToString(cmd.ExecuteScalar());
+                        con.Close();
+
+                        return scalerValue;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

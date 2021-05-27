@@ -25,33 +25,47 @@
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-6 col-form-label">Email</label>
                             <div class="col-sm-6">
-                                <input type="email" class="form-control" id="inputEmail3" disabled placeholder="Email">
+                                <asp:TextBox ID="txtEmail" runat="server" ReadOnly="true" class="form-control"></asp:TextBox>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputPassword3" class="col-sm-6 col-form-label">Current Password</label>
+                            <label for="inputPassword3" class="col-sm-6 col-form-label">
+                                Current Password
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please enter current password" Style="color: red; font-size: 12px;" ControlToValidate="txtCurrPassword" ValidationGroup="formprofile">*</asp:RequiredFieldValidator>
+                            </label>
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                                <asp:TextBox ID="txtCurrPassword" TextMode="Password" runat="server" class="form-control"></asp:TextBox>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputPassword3" class="col-sm-6 col-form-label">New Password</label>
+                            <label for="inputPassword3" class="col-sm-6 col-form-label">
+                                New Password
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter new password" Style="color: red; font-size: 12px;" ControlToValidate="txtNewPassword" ValidationGroup="formprofile">*</asp:RequiredFieldValidator>
+                            </label>
                             <div class="col-sm-6">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputPassword3" class="col-sm-6 col-form-label">Confirm Password</label>
-                            <div class="col-sm-6">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                            </div>
-                        </div>
+                                <asp:TextBox ID="txtNewPassword" TextMode="Password" runat="server" class="form-control"></asp:TextBox>
 
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-6 col-form-label">
+                                Confirm Password
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="formprofile" runat="server" ErrorMessage="Please enter confirm password" Style="color: red; font-size: 12px;" ControlToValidate="txtConfirmPassword">*</asp:RequiredFieldValidator>
+                                <asp:CompareValidator ID="CompareValidator1" Style="color: red; font-size: 12px;" ValidationGroup="formprofile" runat="server" ErrorMessage="New password and confirm password does not match. Please try again." ControlToValidate="txtConfirmPassword" ControlToCompare="txtNewPassword">*</asp:CompareValidator>
+                            </label>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="txtConfirmPassword" TextMode="Password" runat="server" class="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordiv">
+                            <asp:Label runat="server" ID="lblError" Text=""></asp:Label>
+                        </div>
                         <div class="mt-5 text-right" runat="server" id="divbtn">
                             <button type="submit" runat="server" id="Cancel" name="submit" class="btn btn-secondary">Cancel</button>
-                            <button type="submit" runat="server" validationgroup="formprofile" id="Save" name="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" runat="server" onserverclick="Save_ServerClick" validationgroup="formprofile" id="Save" name="submit" class="btn btn-primary">Update</button>
                         </div>
-
+                        <asp:ValidationSummary ID="ValidationSummary1" Style="color: red; font-size: 12px;" ValidationGroup="formprofile" runat="server" />
                     </div>
                 </div>
             </div>

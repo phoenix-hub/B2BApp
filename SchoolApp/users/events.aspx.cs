@@ -473,12 +473,6 @@ namespace SchoolApp.users
             drpEMType.SelectedIndex = -1;
         }
 
-        protected void btnClosePanelIcon_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-            ModalPopupExtender3.Hide();
-        }
-
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -532,5 +526,14 @@ namespace SchoolApp.users
             }
         }
 
+        protected void btnClosePanelIcon_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("events?isactive=events");
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("events?isactive=events");
+        }
     }
 }

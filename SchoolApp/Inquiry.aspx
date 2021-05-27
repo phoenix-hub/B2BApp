@@ -90,6 +90,8 @@
                             <label class="mb-1">
                                 <h6 class="mb-0 text-sm" style="text-transform:capitalize">email 
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="email" style="color:red; text-transform:capitalize" ControlToValidate="email">*</asp:RequiredFieldValidator>
+
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" Style="color: red; text-transform: capitalize;" Display="Dynamic" ValidationExpression="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" ControlToValidate="email" runat="server" ErrorMessage="Enter valid email id" ></asp:RegularExpressionValidator>
                                 </h6>
                             </label>
                             <asp:TextBox ID="email" TextMode="Email" required class="mb-4" placeholder="Enter email address" runat="server"></asp:TextBox>
