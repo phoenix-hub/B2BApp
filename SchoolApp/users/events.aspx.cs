@@ -472,5 +472,56 @@ namespace SchoolApp.users
             txtEMTime.Text = "";
             drpEMType.SelectedIndex = -1;
         }
+
+        protected void btnClosePanelIcon_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+            ModalPopupExtender3.Hide();
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (RepeaterItem liItem in Repeater1.Items)
+                {
+                    CheckBox chkCheck = liItem.FindControl("chkCheck") as CheckBox;
+                    if (chkCheck.Checked)
+                    {
+                        string lblEMID = Convert.ToString((liItem.FindControl("lblEMID") as Label).Text);
+
+
+                        List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
+                            {
+                            new AppKeyValueParam()
+                            {
+                                keyfield="@RequestType",
+                                valfield="Delete"
+                            },
+                            new AppKeyValueParam()
+                            {
+                                keyfield="@EMID",
+                                valfield=lblEMID
+                            }
+                        };
+                        util.save("SPEvent", lst);
+                    }
+                }
+
+                ViewState["SortOrder"] = " ASC";
+                binddata("EMName", Convert.ToString(ViewState["SortOrder"]));
+
+                lblError.Text = "Selected rows deleted!!!";
+                errordiv.Attributes.Remove("class");
+                errordiv.Attributes.Add("class", "alert alert-danger");
+                errordiv.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+                errordiv.Visible = true;
+            }
+        }
+
     }
 }

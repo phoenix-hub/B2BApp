@@ -35,6 +35,17 @@
             text-decoration: none;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btnClosePanel {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <asp:Button ID="btnShowPopup" ValidationGroup="x" runat="server" Style="display: none" />
@@ -72,6 +83,8 @@
 
                         <asp:Button ID="Button1" ValidationGroup="x" runat="server" Style="display: none" />
                         <cc1:ModalPopupExtender ID="ModalPopupExtender3" runat="server" TargetControlID="Button1" PopupControlID="pnlpopup" CancelControlID="btnCancel" BackgroundCssClass="modalBackground"></cc1:ModalPopupExtender>
+                        &nbsp;&nbsp;
+                        <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" class="btn btn-danger" />
                     </div>
                 </div>
 
@@ -85,6 +98,7 @@
                         <HeaderTemplate>
                             <table class="table">
                                 <tr>
+                                    <th scope="col">Trash</th>
                                     <th scope="col">#</th>
                                     <th scope="col">
                                         <asp:Button ID="lnkEMName" class="btng" runat="server" ValidationGroup="x" OnClick="SortlnkEMNameClick" Text="name" />
@@ -110,8 +124,12 @@
                         <ItemTemplate>
                             <tr>
                                 <td scope="col">
+                                    <asp:CheckBox ID="chkCheck" runat="server" />
+                                </td>
+                                <td scope="col">
+                                    <asp:Label runat="server" Visible="false" ID="lblEMID" Text='<%# Eval("EMID") %>' />
                                     <a class="atag" href="assignevent.aspx?id=<%# Eval("EMID") %>">
-                                        <asp:Label runat="server" ID="lblEMID" Text='<%# Eval("EMID") %>' />
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
                                     </a>
                                 </td>
                                 <td scope="col">
@@ -177,6 +195,11 @@
                     <h4 class="text-right">
                         <asp:Label ID="lblformHeader" runat="server" Text=""></asp:Label>
                         &nbsp; Event </h4>
+
+                    <div class="form-inline ml-auto">
+
+                        <button class="btnClosePanel" runat="server" id="btnClosePanelIcon" onserverclick="btnClosePanelIcon_Click"><i class="fa fa-close"></i></button>
+                    </div>
                 </div>
 
                 <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordivForm">

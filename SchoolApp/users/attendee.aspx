@@ -36,6 +36,10 @@
                         <asp:TextBox ID="txtSearch" runat="server" class="form-control" placeholder="Enter filter values"></asp:TextBox>
                     </div>
                     <button type="submit" onserverclick="Search_ServerClick" runat="server" class="btn btn-primary mb-2">Search</button>
+
+                    <div class="form-group mx-sm-3 mb-2 float-right">
+                        <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" class="btn btn-danger" />
+                    </div>
                 </div>
                 <br />
                 <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordiv">
@@ -47,19 +51,24 @@
                         <HeaderTemplate>
                             <table class="table">
                                 <tr>
+                                    <th scope="col">Trash</th>
                                     <th scope="col">#</th>
                                     <th scope="col">company name</th>
                                     <th scope="col">contact name </th>
                                     <th scope="col">email</th>
                                     <th scope="col">AddedBy</th>
                                     <th scope="col">UCrDt</th>
-                                    <th scope="col">Edit</th>
                                 </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
+                                <td scope="col">
+                                    <asp:CheckBox ID="chkCheck" runat="server" />
+                                </td>
                                 <th scope="row">
-                                    <asp:Label runat="server" ID="Label2" Text='<%# Eval("EAID") %>' /></th>
+                                    <asp:Label runat="server" Visible="false" ID="Label2" Text='<%# Eval("EAID") %>' />
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
+                                </th>
                                 <td>
                                     <asp:Label runat="server" ID="Label7" Text='<%# Eval("EACN") %>' /></td>
                                 <td>
@@ -70,8 +79,7 @@
                                     <asp:Label runat="server" ID="Label4" Text='<%# Eval("EAAddedBy") %>' /></td>
                                 <td>
                                     <asp:Label runat="server" ID="Label5" Text='<%# Eval("UCrDt") %>' /></td>
-                                <td>
-                                    <asp:Button ID="btnShow" OnClientClick="return confirm('Are you sure you want to delete attendee? After delete you cant recover this recored.');" OnClick="Delete_Click" class="btn btn-danger" runat="server" Text="Delete" /></td>
+
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>

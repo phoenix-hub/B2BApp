@@ -115,8 +115,8 @@ namespace SchoolApp.users
                 {
                     lblName.Text = dt.Rows[0]["UCPName"].ToString();
                     lblEmail.Text = dt.Rows[0]["UEmail"].ToString();
-                    lblLoginName.Text = string.Format("<spam style='color: white;'>Welcome :</spam> <spam style='color: white;font-weight: 900; font-style: oblique; '>{0}</spam>", Convert.ToString(dt.Rows[0]["UCPName"]));
-                }
+                    lblLoginName.Text = string.Format("<spam style='color: white;'>Welcome :</spam> <spam style='color: white;font-weight: 900; font-style: oblique; '>{0}</spam><spam style='color: white; text-transform: capitalize;'> ({1}) </spam>", Convert.ToString(dt.Rows[0]["UCPName"]),Convert.ToString(Session["Role"]));
+                } 
             }
             catch (Exception ex)
             {

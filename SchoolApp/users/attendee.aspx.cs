@@ -11,6 +11,7 @@ namespace SchoolApp.users
 {
     public partial class attendee : System.Web.UI.Page
     {
+        AppUtility util = new AppUtility();
         string assignId = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -123,46 +124,45 @@ namespace SchoolApp.users
                 throw;
             }
         }
-        protected void Delete_Click(object sender, EventArgs e)
+       
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                var btn = (Button)sender;
-                var item = (RepeaterItem)btn.NamingContainer;
-                var lblRowId = (Label)item.FindControl("Label2");
-
-
-                AppUtility util = new AppUtility();
-
-                List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
+                foreach (RepeaterItem liItem in Repeater1.Items)
                 {
-                    new AppKeyValueParam()
+                    CheckBox chkCheck = liItem.FindControl("chkCheck") as CheckBox;
+                    if (chkCheck.Checked)
                     {
-                        keyfield="@RequestType",
-                        valfield="delete"
-                    },
-                    new AppKeyValueParam()
-                    {
-                        keyfield="@EAID",
-                        valfield= lblRowId.Text.Trim()
+                        string lblEAID = Convert.ToString((liItem.FindControl("Label2") as Label).Text);
+
+
+                        List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
+                            {
+                            new AppKeyValueParam()
+                            {
+                                keyfield="@RequestType",
+                                valfield="delete"
+                            },
+                            new AppKeyValueParam()
+                            {
+                                keyfield="@EAID",
+                                valfield=lblEAID
+                            }
+                        };
+                        util.save("SPAttendee", lst);
                     }
-                };
-                int i = util.save("SPAttendee", lst);
-                if (i > 0)
-                {
-                    CallBindGrid();
-                    lblError.Text = "Attendee Deleted.";
-                    errordiv.Attributes.Remove("class");
-                    errordiv.Attributes.Add("class", "alert alert-success");
-                    errordiv.Visible = true;
-                }
-                else
-                { 
-                    lblError.Text = "Something went wrong. Please contact to admin.";
-                    errordiv.Attributes.Remove("class");
-                    errordiv.Attributes.Add("class", "alert alert-danger");
-                    errordiv.Visible = true;
-                }
+                }  
+
+                if (Request.QueryString["id"] != null)
+                    assignId = Convert.ToString(Request.QueryString["id"]);
+
+                CallBindGrid(); 
+                
+                lblError.Text = "Selected rows deleted!!!";
+                errordiv.Attributes.Remove("class");
+                errordiv.Attributes.Add("class", "alert alert-danger");
+                errordiv.Visible = true;
             }
             catch (Exception ex)
             {

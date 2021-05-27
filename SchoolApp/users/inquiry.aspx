@@ -50,7 +50,7 @@
                         <asp:TextBox ID="txtSearch" runat="server" class="form-control" placeholder="Enter filter values"></asp:TextBox>
                     </div>
                     <asp:Button ID="btnSearch" OnClick="btnSearch_Click" ValidationGroup="BBB" runat="server" Text="Search" class="btn btn-primary mb-2" />
-                     
+
                 </div>
                 <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordiv">
                     <asp:Label runat="server" ID="lblError" Text=""></asp:Label>
@@ -68,7 +68,7 @@
                                     <th scope="col">email</th>
                                     <th scope="col">message </th>
                                     <%if (this.isAdmin)
-                                    { %>
+                                        { %>
                                     <th scope="col" id="thResponseHeader" runat="server"></th>
                                     <% } %>
                                     <th scope="col" id="thDeleteHeader" runat="server"></th>
@@ -77,7 +77,8 @@
                         <ItemTemplate>
                             <tr>
                                 <th scope="row">
-                                    <asp:Label runat="server" ID="Label2" Text='<%# Eval("EEID") %>' /></th>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
+                                    <asp:Label runat="server" Visible="false" ID="Label2" Text='<%# Eval("EEID") %>' /></th>
                                 <td>
                                     <asp:Label runat="server" ID="Label1" Text='<%# Eval("EECname") %>' /></td>
                                 <td>
@@ -93,7 +94,7 @@
 
                                 </td>
                                 <%if (this.isAdmin)
-                                { %>
+                                    { %>
                                 <td id="tdResponseBody" runat="server">
                                     <asp:Button ID="btnRespond" OnClick="btnRespond_Click" class="btn btn-secondary" runat="server" Text="Respond" /></td>
                                 <% } %>

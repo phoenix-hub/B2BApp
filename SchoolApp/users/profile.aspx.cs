@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -26,10 +27,12 @@ namespace SchoolApp.users
                 {
                     if (_userrole.ToLower().Equals("user"))
                     {
-                        //divbtn.Visible = false;
                         DisablePageControls(false, _userrole);
                     }
                 }
+
+                lblError.Text = "";
+                errordiv.Visible = false;
             }
         }
         public void DisablePageControls(bool status, string _role)
@@ -95,7 +98,7 @@ namespace SchoolApp.users
 
         protected void Cancel_ServerClick(object sender, EventArgs e)
         {
-            
+            Response.Redirect("dashboard?isactive=dashboard");
         }
 
         protected void Save_ServerClick(object sender, EventArgs e)
@@ -105,7 +108,7 @@ namespace SchoolApp.users
                 ValidateForm();
 
                 util = new AppUtility();
-
+                string filename = FileUploadLogic(ref fileUTlicns);
                 List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
                 {
                     new AppKeyValueParam()
@@ -143,15 +146,15 @@ namespace SchoolApp.users
                         keyfield="@UEmail",
                         valfield=txtUEmail.Text.Trim()
                     },
-                    //new AppKeyValueParam()
-                    //{
-                    //    keyfield="@UTlicns",
-                    //    valfield=txtUTlicns.Text.Trim()
-                    //},
                     new AppKeyValueParam()
                     {
                         keyfield="@UMdBy",
                         valfield=Convert.ToString(Session["UEmail"])
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@UTlicns",
+                        valfield=filename
                     },
                     new AppKeyValueParam()
                     {
@@ -163,6 +166,8 @@ namespace SchoolApp.users
                 int issave = util.save("SPUser", lst);
                 if (issave > 0)
                 {
+                    fileUTlicns.SaveAs(Server.MapPath(@"~\Content\TradeLicense\" + filename.ToString()));
+
                     errordiv.Attributes.Remove("class");
                     errordiv.Attributes.Add("class", "alert alert-success");
                     lblError.Text = "Successfully updated.";
@@ -229,5 +234,33 @@ namespace SchoolApp.users
                 throw;
             }
         }
+
+        protected string FileUploadLogic(ref FileUpload _FileUpload1)
+        {
+            string _fileName = string.Empty;
+            try
+            {
+                FileInfo fi = new FileInfo(_FileUpload1.FileName);
+
+                // Get file extension   
+                string extn = fi.Extension.ToLower();
+                if (!extn.Equals(".pdf") || !extn.Equals(".jpg") || !extn.Equals(".jpeg") || !extn.Equals(".png"))
+                {
+                    throw new Exception("Only PDF, JPG, JPEG, PNG file accepted.");
+                }
+                string strFileName = _FileUpload1.FileName.ToString();
+                string strTimeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                string strExtension = Path.GetExtension(strFileName);
+
+                strFileName = util.RandomString(6) + "-" + strTimeStamp + strExtension;
+                _fileName = strFileName;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return _fileName;
+        }
+
     }
 }

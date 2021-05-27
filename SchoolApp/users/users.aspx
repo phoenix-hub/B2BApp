@@ -24,10 +24,11 @@
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
-            background-color:transparent;
+            background-color: transparent;
         }
-        .table{
-                font-size: 14px;
+
+        .table {
+            font-size: 14px;
         }
     </style>
 </asp:Content>
@@ -105,7 +106,8 @@
                         <ItemTemplate>
                             <tr>
                                 <th scope="row">
-                                    <asp:Label runat="server" ID="Label2" Text='<%# Eval("UID") %>' /></th>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
+                                    <asp:Label runat="server" Visible="false" ID="Label2" Text='<%# Eval("UID") %>' /></th>
                                 <td>
                                     <asp:Label runat="server" ID="Label7" Text='<%# Eval("UCName") %>' /></td>
                                 <td>

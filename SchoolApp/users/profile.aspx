@@ -68,7 +68,7 @@
                         <label class="labels">
                             user email
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Display="Dynamic" ControlToValidate="txtUEmail" runat="server" ErrorMessage="user email" Style="color: red; text-transform: capitalize;" ValidationGroup="formprofile">*</asp:RequiredFieldValidator></label>
-                        <asp:TextBox ID="txtUEmail" runat="server" class="form-control" placeholder="user email"></asp:TextBox>
+                        <asp:TextBox ID="txtUEmail" ReadOnly="true" runat="server" class="form-control" placeholder="user email"></asp:TextBox>
                     </div>
                 </div>
 
@@ -95,13 +95,13 @@
                         <asp:FileUpload ID="fileUTlicns" runat="server" class="form-control-file" />
                     </div>
                 </div>
-                <div class="mt-5 text-right" runat="server" id="divbtn">
-                    <button type="submit" runat="server" onserverclick="Cancel_ServerClick" id="Cancel" name="submit" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" runat="server" validationgroup="formprofile" onserverclick="Save_ServerClick" id="Save" name="submit" class="btn btn-primary">Update</button>
-                </div>
                 <br />
                 <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordiv">
                     <asp:Label runat="server" ID="lblError" Text=""></asp:Label>
+                </div>
+                <div class="mt-5 text-right" runat="server" id="divbtn">
+                    <button type="submit" runat="server" onserverclick="Cancel_ServerClick" id="Cancel" name="submit" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" runat="server" validationgroup="formprofile" onserverclick="Save_ServerClick" id="Save" name="submit" class="btn btn-primary">Update</button>
                 </div>
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="formprofile" Style="color: red; text-transform: capitalize;" />
             </div>
