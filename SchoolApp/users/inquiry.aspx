@@ -24,6 +24,17 @@
             border-color: #b23cfd !important;
         }
     </style>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btnClosePanel {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 
@@ -50,56 +61,70 @@
                         <asp:TextBox ID="txtSearch" runat="server" class="form-control" placeholder="Enter filter values"></asp:TextBox>
                     </div>
                     <asp:Button ID="btnSearch" OnClick="btnSearch_Click" ValidationGroup="BBB" runat="server" Text="Search" class="btn btn-primary mb-2" />
-
+                    
+                    <div class="form-group mx-sm-3 mb-2 float-right">
+                        <asp:Button ID="btnDelete" runat="server" OnClick="btnDelete_Click" Text="Delete" class="btn btn-danger" />
+                    &nbsp; &nbsp; 
+                     <asp:Button ID="btnAddInquiry" runat="server" OnClick="btnAddInquiry_Click" Text="Add Inquiry" class="btn btn-success" />
+                    </div>
+                     
                 </div>
                 <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordiv">
                     <asp:Label runat="server" ID="lblError" Text=""></asp:Label>
                 </div>
                 <div class="table-responsive">
-                    <asp:Repeater ID="Repeater1" runat="server">
+                    <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="OnItemDataBound">
 
                         <HeaderTemplate>
                             <table class="table">
                                 <tr>
+                                    <%if (this.isAdmin)
+                                        { %>
+                                    <th scope="col" id="thResponseHeader" runat="server"></th>
+                                    <% } %>
+                                    <th scope="col">Trash</th>
                                     <th scope="col">#</th>
                                     <th scope="col">company name</th>
                                     <th scope="col">contact person name </th>
                                     <th scope="col">contact number</th>
                                     <th scope="col">email</th>
                                     <th scope="col">message </th>
-                                    <%if (this.isAdmin)
-                                        { %>
-                                    <th scope="col" id="thResponseHeader" runat="server"></th>
-                                    <% } %>
-                                    <th scope="col" id="thDeleteHeader" runat="server"></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Remarks</th>
                                 </tr>
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                                <th scope="row">
-                                    <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
-                                    <asp:Label runat="server" Visible="false" ID="Label2" Text='<%# Eval("EEID") %>' /></th>
-                                <td>
-                                    <asp:Label runat="server" ID="Label1" Text='<%# Eval("EECname") %>' /></td>
-                                <td>
-                                    <asp:Label runat="server" ID="Label3" Text='<%# Eval("EECPName") %>' /></td>
-                                <td>
-                                    <asp:Label runat="server" ID="Label4" Text='<%# Eval("EECNumber") %>' /></td>
-                                <td>
-                                    <asp:Label runat="server" ID="Label5" Text='<%# Eval("EEEmail") %>' /></td>
-                                <td>
-                                    <asp:Label runat="server" ID="Label6" Text='<%# Eval("EEMessage") %>' />
-                                    <asp:Label runat="server" ID="lblStatus" Visible="false" Text='<%# Eval("EEstatus") %>' />
-                                    <asp:Label runat="server" ID="lblRemarks" Visible="false" Text='<%# Eval("EERemark") %>' />
-
-                                </td>
                                 <%if (this.isAdmin)
                                     { %>
                                 <td id="tdResponseBody" runat="server">
                                     <asp:Button ID="btnRespond" OnClick="btnRespond_Click" class="btn btn-secondary" runat="server" Text="Respond" /></td>
                                 <% } %>
-                                <td id="tddeleteBody" runat="server">
-                                    <asp:Button ID="btnDelete" OnClick="btnDelete_Click" class="btn btn-danger" runat="server" Text="Delete" /></td>
+                                <td>
+                                    <asp:CheckBox ID="chkCheck" runat="server" />
+                                </td>
+                                <th scope="row">
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" />
+                                    <asp:Label runat="server" Visible="false" ID="Label2" Text='<%# Eval("EEID") %>' /></th>
+                                <td>
+                                    <asp:Label runat="server" ID="EECname" Text='<%# Eval("EECname") %>' /></td>
+                                <td>
+                                    <asp:Label runat="server" ID="EECPName" Text='<%# Eval("EECPName") %>' /></td>
+                                <td>
+                                    <asp:Label runat="server" ID="EECNumber" Text='<%# Eval("EECNumber") %>' /></td>
+                                <td>
+                                    <asp:Label runat="server" ID="EEEmail" Text='<%# Eval("EEEmail") %>' /></td>
+                                <td>
+                                    <asp:Label runat="server" ID="EEMessage" Text='<%# Eval("EEMessage") %>' />
+                                </td>
+                                <td>
+                                    <b>
+                                        <asp:Label runat="server" ID="lblStatus" Text='<%# Eval("EEstatus") %>' />
+                                    </b>
+                                </td>
+                                <td>
+                                    <asp:Label runat="server" ID="lblRemarks" Text='<%# Eval("EERemark") %>' />
+                                </td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>
@@ -122,7 +147,11 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">
                             <asp:Label ID="lblformHeader" runat="server" Text=""></asp:Label>
-                            &nbsp; Inquiry </h4>
+                             Inquiry </h4>
+
+                        <div class="form-inline ml-auto"> 
+                        <button class="btnClosePanel" runat="server" id="btnClosePanelIcon" onserverclick="btnClosePanelIcon_Click"><i class="fa fa-close"></i></button>
+                    </div>
                     </div>
 
                     <div class="alert alert-danger" role="alert" runat="server" visible="false" id="errordivForm">
@@ -130,13 +159,49 @@
                     </div>
 
 
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">company name</label>
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="CompanyName" ReadOnly="true" runat="server" class="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">contact person name</label>
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="CompanyPName" ReadOnly="true" runat="server"  class="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">contact number</label>
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="Mobile" ReadOnly="true" runat="server"  class="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">email</label>
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="email" ReadOnly="true" runat="server"  class="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Message</label>
+                        <div class="col-sm-8">
+                            <asp:TextBox ID="Message" ReadOnly="true" runat="server" TextMode="MultiLine" class="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+
+                      <%if (this.isAdmin)
+                                    { %>
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Please choose status</label>
                         <div class="col-sm-8">
                             <asp:DropDownList ID="drpStatus" runat="server" class="form-control">
                                 <asp:ListItem Value="select">Select</asp:ListItem>
-                                <asp:ListItem Value="In-Progress">In-Progress</asp:ListItem>
+                                <asp:ListItem Value="In-Progress" Selected="True">In-Progress</asp:ListItem>
                                 <asp:ListItem Value="Close">Close</asp:ListItem>
                                 <asp:ListItem Value="Reject">Reject</asp:ListItem>
                             </asp:DropDownList>
@@ -149,7 +214,7 @@
                             <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" class="form-control"></asp:TextBox>
                         </div>
                     </div>
-
+                      <% } %>
 
                 </div>
                 <div class="row mt-2">

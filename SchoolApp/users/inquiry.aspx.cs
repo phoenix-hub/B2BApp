@@ -101,8 +101,31 @@ namespace SchoolApp.users
             var lblStatus = (Label)item.FindControl("lblStatus");
             var lblRemarks = (Label)item.FindControl("lblRemarks");
 
+            var lblCompanyName = (Label)item.FindControl("EECname");
+            var lblCompanyPName = (Label)item.FindControl("EECPName");
+            var lblMobile = (Label)item.FindControl("EECNumber");
+            var lblemail = (Label)item.FindControl("EEEmail");
+            var lblMessage = (Label)item.FindControl("EEMessage");
+
+
+            #region Bind Form
+
             drpStatus.SelectedValue = lblStatus.Text.Trim();
             txtRemarks.Text = lblRemarks.Text.Trim();
+
+            CompanyName.Text = lblCompanyName.Text.Trim();
+            CompanyPName.Text = lblCompanyPName.Text.Trim();
+            Mobile.Text = lblMobile.Text.Trim();
+            Mobile.Text = lblMobile.Text.Trim();
+            email.Text = lblemail.Text.Trim();
+            Message.Text = lblMessage.Text.Trim();
+            #endregion
+
+            CompanyName.ReadOnly = true;
+            CompanyPName.ReadOnly = true;
+            Mobile.ReadOnly = true;
+            email.ReadOnly = true;
+            Message.ReadOnly = true;
 
             hdnUpdateid.Value = ddl.Text.Trim();
 
@@ -116,52 +139,54 @@ namespace SchoolApp.users
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var item = (RepeaterItem)btn.NamingContainer;
-            var lblId = (Label)item.FindControl("Label2");
             try
             {
-                List<AppKeyValueParam> prmList = new List<AppKeyValueParam>()
+                int affectedRows = 0;
+
+                foreach (RepeaterItem liItem in Repeater1.Items)
                 {
-                    new AppKeyValueParam()
+                    CheckBox chkCheck = liItem.FindControl("chkCheck") as CheckBox;
+                    if (chkCheck.Checked)
                     {
-                        keyfield="@RequestType",
-                        valfield="delete"
-                    },
-                    new AppKeyValueParam()
-                    {
-                        keyfield="@EEID",
-                        valfield= lblId.Text.Trim()
+                        affectedRows += affectedRows + 1;
+
+                        string lblEEID = Convert.ToString((liItem.FindControl("Label2") as Label).Text);
+
+                        List<AppKeyValueParam> lst = new List<AppKeyValueParam>()
+                            {
+                           new AppKeyValueParam()
+                                {
+                                    keyfield="@RequestType",
+                                    valfield="delete"
+                                },
+                                new AppKeyValueParam()
+                                {
+                                    keyfield="@EEID",
+                                    valfield= lblEEID
+                                }
+                            };
+                        util.save("SPEnquiry", lst);
                     }
-                };
-
-                string result = Operation("SPEnquiry", prmList);
-
-                if (result == "Ok")
-                {
-                    lblError.Text = "Record Deleted.";
-                    errordiv.Attributes.Remove("class");
-                    errordiv.Attributes.Add("class", "alert alert-success");
-                    errordiv.Visible = true;
                 }
-                else
+
+                if (affectedRows == 0)
                 {
-                    lblError.Text = "Something went wrong. Please contact to admin.";
-                    errordiv.Attributes.Remove("class");
-                    errordiv.Attributes.Add("class", "alert alert-danger");
-                    errordiv.Visible = true;
+                    throw new Exception("Please select any row to delete.");
                 }
+
+                lblError.Text = "Selected rows deleted!!!";
+                errordiv.Attributes.Remove("class");
+                errordiv.Attributes.Add("class", "alert alert-danger");
+                errordiv.Visible = true;
+
                 BindData();
             }
             catch (Exception ex)
             {
                 lblError.Text = ex.Message;
-                errordiv.Attributes.Remove("class");
-                errordiv.Attributes.Add("class", "alert alert-danger");
                 errordiv.Visible = true;
             }
         }
-
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             try
@@ -176,7 +201,6 @@ namespace SchoolApp.users
                 {
                     reqtype = "update";
                 }
-
                 List<AppKeyValueParam> prmList = new List<AppKeyValueParam>()
                 {
                     new AppKeyValueParam()
@@ -203,6 +227,34 @@ namespace SchoolApp.users
                     {
                         keyfield="@User",
                         valfield= Convert.ToString(Session["UEmail"])
+                    },
+
+
+
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@EECname",
+                        valfield= CompanyName.Text.Trim()
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@EECPName",
+                        valfield= CompanyPName.Text.Trim()
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@EECNumber",
+                        valfield= Mobile.Text.Trim()
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@EEEmail",
+                        valfield= email.Text.Trim()
+                    },
+                    new AppKeyValueParam()
+                    {
+                        keyfield="@EEMessage",
+                        valfield= Message.Text.Trim()
                     }
                 };
 
@@ -240,8 +292,6 @@ namespace SchoolApp.users
                 errordiv.Visible = true;
             }
         }
-
-
         protected string Operation(string procName, List<AppKeyValueParam> prmList)
         {
             try
@@ -261,6 +311,51 @@ namespace SchoolApp.users
             {
                 return ex.ToString();
             }
+        }
+        protected void OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    RepeaterItem item = e.Item;
+
+            //    //Reference the Controls.
+            //    string lblRemarks = (item.FindControl("lblRemarks") as Label).Text;
+            //    if (string.IsNullOrEmpty(lblRemarks) || string.IsNullOrWhiteSpace(lblRemarks))
+            //    {
+
+            //    }
+            //}
+        }
+        protected void btnClosePanelIcon_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+            ModalPopupExtender1.Hide();
+        }
+
+
+        protected void btnAddInquiry_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+            hdnUpdateid.Value = "0";
+
+            btnUpdate.Text = "Save";
+            lblformHeader.Text = "Add ";
+
+            CompanyName.ReadOnly = false;
+            CompanyPName.ReadOnly = false;
+            Mobile.ReadOnly = false;
+            email.ReadOnly = false;
+            Message.ReadOnly = false;
+
+            CompanyName.Text = "";
+            CompanyPName.Text = "";
+            Mobile.Text = "";
+            email.Text = "";
+            Message.Text = "";
+
+            drpStatus.SelectedValue = "In-Progress";
+            txtRemarks.Text = "";
+            ModalPopupExtender1.Show();
         }
     }
 }

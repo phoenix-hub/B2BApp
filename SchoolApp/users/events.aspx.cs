@@ -483,11 +483,15 @@ namespace SchoolApp.users
         {
             try
             {
+                int affectedRows = 0;
+
                 foreach (RepeaterItem liItem in Repeater1.Items)
                 {
                     CheckBox chkCheck = liItem.FindControl("chkCheck") as CheckBox;
                     if (chkCheck.Checked)
                     {
+                        affectedRows += affectedRows + 1;
+
                         string lblEMID = Convert.ToString((liItem.FindControl("lblEMID") as Label).Text);
 
 
@@ -506,6 +510,11 @@ namespace SchoolApp.users
                         };
                         util.save("SPEvent", lst);
                     }
+                }
+
+                if (affectedRows == 0)
+                {
+                    throw new Exception("Please select any row to delete.");
                 }
 
                 ViewState["SortOrder"] = " ASC";

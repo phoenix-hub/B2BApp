@@ -348,7 +348,7 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <asp:Button ID="Save" runat="server" Text="Save" ValidationGroup="formprofile" class="btn btn-secondary" OnClick="Save_ServerClick" />
+                    <asp:Button ID="Save" runat="server" Text="Save" ValidationGroup="formprofile" class="btn btn-success" OnClick="Save_ServerClick" />
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-secondary" />
                 </div>
             </div>

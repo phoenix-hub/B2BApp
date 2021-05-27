@@ -14,26 +14,33 @@ namespace SchoolApp.users
     {
         public string _userUEmail;
         public string _userrole;
+
+        protected bool isFileExists = false;
+
         AppUtility util;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                _userUEmail = Convert.ToString(Session["UEmail"]);
-                BindUser(_userUEmail);
-
-                _userrole = Convert.ToString(Session["Role"]);
-                if (!string.IsNullOrEmpty(_userrole))
-                {
-                    if (_userrole.ToLower().Equals("user"))
-                    {
-                        DisablePageControls(false, _userrole);
-                    }
-                }
-
-                lblError.Text = "";
-                errordiv.Visible = false;
+                PageLoadContaints();
             }
+        }
+        protected void PageLoadContaints()
+        {
+            _userUEmail = Convert.ToString(Session["UEmail"]);
+            BindUser(_userUEmail);
+
+            _userrole = Convert.ToString(Session["Role"]);
+            if (!string.IsNullOrEmpty(_userrole))
+            {
+                if (_userrole.ToLower().Equals("user"))
+                {
+                    DisablePageControls(false, _userrole);
+                }
+            }
+
+            lblError.Text = "";
+            errordiv.Visible = false;
         }
         public void DisablePageControls(bool status, string _role)
         {
@@ -84,6 +91,17 @@ namespace SchoolApp.users
                     txtUEmail.Text = dt.Rows[0]["UEmail"].ToString();
                     //txtUTlicns.Text = dt.Rows[0]["UTlicns"].ToString();
                     drpURole.Items.FindByValue(dt.Rows[0]["URole"].ToString().ToLower()).Selected = true;
+
+                    if (!string.IsNullOrEmpty(Convert.ToString(dt.Rows[0]["UTlicns"])))
+                    {
+                        isFileExists = true;
+                        linkbaner.NavigateUrl = @"~\Content\TradeLicense\" + Convert.ToString(dt.Rows[0]["UTlicns"]);
+                    }
+                    else
+                    {
+                        isFileExists = false;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -166,7 +184,12 @@ namespace SchoolApp.users
                 int issave = util.save("SPUser", lst);
                 if (issave > 0)
                 {
-                    fileUTlicns.SaveAs(Server.MapPath(@"~\Content\TradeLicense\" + filename.ToString()));
+                    if (!string.IsNullOrEmpty(filename))
+                    {
+                        fileUTlicns.SaveAs(Server.MapPath(@"~\Content\TradeLicense\" + filename.ToString()));
+                    }
+
+                    PageLoadContaints();
 
                     errordiv.Attributes.Remove("class");
                     errordiv.Attributes.Add("class", "alert alert-success");
@@ -224,10 +247,6 @@ namespace SchoolApp.users
                 {
                     throw new Exception("Please enter City.");
                 }
-                //else if (string.IsNullOrEmpty(txtUTlicns.Text))
-                //{
-                //    throw new Exception("trade license.");
-                //}
             }
             catch (Exception)
             {
@@ -240,20 +259,23 @@ namespace SchoolApp.users
             string _fileName = string.Empty;
             try
             {
-                FileInfo fi = new FileInfo(_FileUpload1.FileName);
-
-                // Get file extension   
-                string extn = fi.Extension.ToLower();
-                if (!extn.Equals(".pdf") || !extn.Equals(".jpg") || !extn.Equals(".jpeg") || !extn.Equals(".png"))
+                if (_FileUpload1.HasFile)
                 {
-                    throw new Exception("Only PDF, JPG, JPEG, PNG file accepted.");
-                }
-                string strFileName = _FileUpload1.FileName.ToString();
-                string strTimeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string strExtension = Path.GetExtension(strFileName);
+                    FileInfo fi = new FileInfo(_FileUpload1.FileName);
 
-                strFileName = util.RandomString(6) + "-" + strTimeStamp + strExtension;
-                _fileName = strFileName;
+                    // Get file extension   
+                    string extn = fi.Extension.ToLower();
+                    if (!extn.Equals(".pdf") && !extn.Equals(".jpg") && !extn.Equals(".jpeg") && !extn.Equals(".png"))
+                    {
+                        throw new Exception("Only PDF, JPG, JPEG, PNG file accepted.");
+                    }
+                    string strFileName = _FileUpload1.FileName.ToString();
+                    string strTimeStamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    string strExtension = Path.GetExtension(strFileName);
+
+                    strFileName = util.RandomString(6) + "-" + strTimeStamp + strExtension;
+                    _fileName = strFileName;
+                }
             }
             catch (Exception ex)
             {

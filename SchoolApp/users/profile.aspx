@@ -93,6 +93,12 @@
                             trade license
                         </label>
                         <asp:FileUpload ID="fileUTlicns" runat="server" class="form-control-file" />
+                        
+                        <%if (this.isFileExists)
+                                    { %>
+                        <br />
+                        <asp:HyperLink ID="linkbaner" Target="_blank" runat="server" NavigateUrl="#" Text="Click here to View Baner."></asp:HyperLink>
+                        <% } %>
                     </div>
                 </div>
                 <br />

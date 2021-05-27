@@ -124,16 +124,22 @@ namespace SchoolApp.users
                 throw;
             }
         }
-       
+
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
+                int affectedRows = 0;
+
                 foreach (RepeaterItem liItem in Repeater1.Items)
                 {
+
+
                     CheckBox chkCheck = liItem.FindControl("chkCheck") as CheckBox;
                     if (chkCheck.Checked)
                     {
+                        affectedRows += affectedRows + 1;
+
                         string lblEAID = Convert.ToString((liItem.FindControl("Label2") as Label).Text);
 
 
@@ -152,13 +158,18 @@ namespace SchoolApp.users
                         };
                         util.save("SPAttendee", lst);
                     }
-                }  
+                }
+
+                if (affectedRows == 0)
+                {
+                    throw new Exception("Please select any row to delete.");
+                }
 
                 if (Request.QueryString["id"] != null)
                     assignId = Convert.ToString(Request.QueryString["id"]);
 
-                CallBindGrid(); 
-                
+                CallBindGrid();
+
                 lblError.Text = "Selected rows deleted!!!";
                 errordiv.Attributes.Remove("class");
                 errordiv.Attributes.Add("class", "alert alert-danger");
