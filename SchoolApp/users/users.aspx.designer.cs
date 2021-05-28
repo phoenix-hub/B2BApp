@@ -294,6 +294,33 @@ namespace SchoolApp.users
         protected global::System.Web.UI.WebControls.FileUpload fileUTlicns;
 
         /// <summary>
+        /// linkbaner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink linkbaner;
+
+        /// <summary>
+        /// txtPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+
+        /// <summary>
+        /// txtConfirmPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
+
+        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>
@@ -312,13 +339,22 @@ namespace SchoolApp.users
         protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
-        /// Div2 control.
+        /// hdnUpdateid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
+        protected global::System.Web.UI.WebControls.HiddenField hdnUpdateid;
+
+        /// <summary>
+        /// divErrorForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrorForm;
 
         /// <summary>
         /// lblErrorForm control.
@@ -328,14 +364,5 @@ namespace SchoolApp.users
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorForm;
-
-        /// <summary>
-        /// ValidationSummary1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
     }
 }
