@@ -68,6 +68,7 @@
 
                                     <asp:HyperLink ID="lnkusers" NavigateUrl="users?isactive=users" runat="server" class="nav-item nav-link ">Users</asp:HyperLink>
 
+                                    <asp:HyperLink ID="lnkforgotpassword" NavigateUrl="forgotpassword?isactive=forgotpassword" runat="server" class="nav-item nav-link ">Forgot Password</asp:HyperLink>
 
 
                                 </div>

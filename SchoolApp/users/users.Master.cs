@@ -45,24 +45,29 @@ namespace SchoolApp.users
                 HyperLink lnkassignevent = (HyperLink)this.FindControl("lnkassignevent");
                 HyperLink lnkinquiry = (HyperLink)this.FindControl("lnkinquiry");
                 HyperLink lnkusers = (HyperLink)this.FindControl("lnkusers");
+                HyperLink lnkforgotpassword = (HyperLink)this.FindControl("lnkforgotpassword");
                 //HyperLink lnkpasswordreset = (HyperLink)this.FindControl("lnkresetpassword");
 
                 SetActiveLink(ref lnkdashboard, _strIsActive);
                 SetActiveLink(ref lnkevents, _strIsActive);
                 SetActiveLink(ref lnkinquiry, _strIsActive);
+                SetActiveLink(ref lnkforgotpassword, _strIsActive);
                 //SetActiveLink(ref lnkpasswordreset, _strIsActive);
 
                 if (_role.ToLower().Equals( "admin"))
                 {
+                    lnkforgotpassword.Visible = true;
                     lnkattendee.Visible = false;
                     lnkassignevent.Visible = false;
                     lnkusers.Visible = true;
                     SetActiveLink(ref lnkusers, _strIsActive);
+                    SetActiveLink(ref lnkforgotpassword, _strIsActive);
                     SetActiveLink(ref lnkattendee, _strIsActive);
                     //SetActiveLink(ref lnkassignevent, _strIsActive);
                 }
                 else
                 {
+                    lnkforgotpassword.Visible = false;
                     lnkusers.Visible = false;
                     lnkattendee.Visible = false;
                     lnkassignevent.Visible = false;

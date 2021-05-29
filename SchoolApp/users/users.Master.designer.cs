@@ -87,6 +87,15 @@ namespace SchoolApp.users
         protected global::System.Web.UI.WebControls.HyperLink lnkusers;
 
         /// <summary>
+        /// lnkforgotpassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkforgotpassword;
+
+        /// <summary>
         /// lblLoginName control.
         /// </summary>
         /// <remarks>
