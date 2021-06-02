@@ -121,6 +121,36 @@ namespace SchoolApp.SchoolAppUtility
                 throw ex;
             }
         }
-    
+
+
+        #region InLine Execution
+        public DataTable getdataInline(string query)
+        {
+            try
+            {
+                using (var con = new SqlConnection(sqlcon))
+                {
+                    using (var cmd = new SqlCommand(query, con))
+                    { 
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+
+                            con.Open();
+                            da.Fill(dt);
+                            con.Close();
+
+                            return dt;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        #endregion
     }
 }
