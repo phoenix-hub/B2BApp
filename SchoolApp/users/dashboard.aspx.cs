@@ -39,12 +39,22 @@ namespace SchoolApp.users
                 lst.Add(new AppKeyValueParam { keyfield = "@ReqType", valfield = "eventdetails" });
                 lst.Add(new AppKeyValueParam { keyfield = "@RequestedBy", valfield = Convert.ToString(Session["UEmail"]) });
                 dt = new DataTable();
+
                 dt = util.getdata("SPDashboard", lst);
-                if (dt.Rows.Count > 0)
+
+                if (dt != null)
                 {
-                    RepeaterEventDashBoard.DataSource = dt;
-                    divEventDetails.Visible = false;
-                    lblEventDetails.Text = "";
+                    if (dt.Rows.Count > 0)
+                    {
+                        RepeaterEventDashBoard.DataSource = dt;
+                        divEventDetails.Visible = false;
+                        lblEventDetails.Text = "";
+                    }
+                    else
+                    {
+                        divEventDetails.Visible = true;
+                        lblEventDetails.Text = "No record found.";
+                    }
                 }
                 else
                 {
@@ -69,11 +79,19 @@ namespace SchoolApp.users
                 lst.Add(new AppKeyValueParam { keyfield = "@RequestedBy", valfield = Convert.ToString(Session["UEmail"]) });
                 dt = new DataTable();
                 dt = util.getdata("SPDashboard", lst);
-                if (dt.Rows.Count > 0)
+                if (dt != null)
                 {
-                    ReapeterInquiry.DataSource = dt;
-                    divInquiry.Visible = false;
-                    lblInquiry.Text = "";
+                    if (dt.Rows.Count > 0)
+                    {
+                        ReapeterInquiry.DataSource = dt;
+                        divInquiry.Visible = false;
+                        lblInquiry.Text = "";
+                    }
+                    else
+                    {
+                        divInquiry.Visible = true;
+                        lblInquiry.Text = "No record found.";
+                    }
                 }
                 else
                 {
@@ -99,18 +117,27 @@ namespace SchoolApp.users
                 lst.Add(new AppKeyValueParam { keyfield = "@RequestedBy", valfield = Convert.ToString(Session["UEmail"]) });
                 dt = new DataTable();
                 dt = util.getdata("SPDashboard", lst);
-                if (dt.Rows.Count > 0)
+                if (dt != null)
                 {
-                    lblTotEvents.Text = Convert.ToString(dt.Rows[0]["TotEvent"]);
-                    lblTotUsers.Text = Convert.ToString(dt.Rows[0]["TotUsers"]);
-                    lblTotInquiry.Text = Convert.ToString(dt.Rows[0]["TotInquiry"]);
+                    if (dt.Rows.Count > 0)
+                    {
+                        lblTotEvents.Text = Convert.ToString(dt.Rows[0]["TotEvent"]);
+                        lblTotUsers.Text = Convert.ToString(dt.Rows[0]["TotUsers"]);
+                        lblTotInquiry.Text = Convert.ToString(dt.Rows[0]["TotInquiry"]);
+                    }
+                    else
+                    {
+                        lblTotEvents.Text = "0";
+                        lblTotUsers.Text = "0";
+                        lblTotInquiry.Text = "0";
+                    }
                 }
                 else
                 {
                     lblTotEvents.Text = "0";
                     lblTotUsers.Text = "0";
                     lblTotInquiry.Text = "0";
-                } 
+                }
             }
             catch (Exception ex)
             {
