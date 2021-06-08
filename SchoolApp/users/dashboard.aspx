@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/users/users.Master" AutoEventWireup="true" CodeBehind="dashboard.aspx.cs" Inherits="SchoolApp.users.dashboard" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
@@ -24,13 +26,15 @@
                 <div class="col-md-4">
                     <div class="dbox dbox--color-1">
                         <div class="dbox__icon">
-                            <i class="glyphicon glyphicon-cloud"></i>
+                            <i class="glyphicon glyphicon-cloud">
+                                <span class="dbox__count">
+                                    <asp:Label ID="lblTotEvents" runat="server" Text=""></asp:Label>
+                                </span>
+                            </i>
                         </div>
                         <div class="dbox__body">
                             <span class="dbox__count">
-                                <asp:Label ID="lblTotEvents" runat="server" Text=""></asp:Label>
-                            </span>
-                            <span class="dbox__title">Total Events</span>
+                                <span class="dbox__title" style="font-size: 2vw;">Total Events</span></span>
                         </div>
 
                         <div class="dbox__action">
@@ -41,13 +45,15 @@
                 <div class="col-md-4">
                     <div class="dbox dbox--color-2">
                         <div class="dbox__icon">
-                            <i class="glyphicon glyphicon-download"></i>
+                            <i class="glyphicon glyphicon-download">
+                                <span class="dbox__count">
+                                    <asp:Label ID="lblTotInquiry" runat="server" Text=""></asp:Label></span>
+                            </i>
                         </div>
                         <div class="dbox__body">
                             <span class="dbox__count">
-                                <asp:Label ID="lblTotInquiry" runat="server" Text=""></asp:Label>
+                                <span class="dbox__title" style="font-size: 2vw;">Total Inquiry</span>
                             </span>
-                            <span class="dbox__title">Total Inquiry</span>
                         </div>
 
                         <div class="dbox__action">
@@ -60,13 +66,15 @@
                 <div class="col-md-4">
                     <div class="dbox dbox--color-3">
                         <div class="dbox__icon">
-                            <i class="glyphicon glyphicon-heart"></i>
+                            <i class="glyphicon glyphicon-heart">
+                                <span class="dbox__count">
+                                    <asp:Label ID="lblTotUsers" runat="server" Text=""></asp:Label>
+                                </span>
+                            </i>
                         </div>
                         <div class="dbox__body">
                             <span class="dbox__count">
-                                <asp:Label ID="lblTotUsers" runat="server" Text=""></asp:Label>
-                            </span>
-                            <span class="dbox__title">Total Users</span>
+                                <span class="dbox__title" style="font-size: 2vw;">Total Users</span> </span>
                         </div>
 
                         <div class="dbox__action">
@@ -81,39 +89,52 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="alert alert-danger" role="alert" runat="server" visible="false" id="divEventDetails">
-                        <asp:Label runat="server" ID="lblEventDetails" Text=""></asp:Label>
+
+                    <asp:Chart ID="Chart1" runat="server">
+                        <Series>
+                            <asp:Series Name="Series1" ChartType="Pie"></asp:Series>
+                        </Series>
+                        <ChartAreas>
+                            <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                        </ChartAreas>
+                    </asp:Chart>
+
+                    <div style="display: none;">
+                        <div class="alert alert-danger" role="alert" runat="server" visible="false" id="divEventDetails">
+                            <asp:Label runat="server" ID="lblEventDetails" Text=""></asp:Label>
+                        </div>
+                        <table>
+                            <tr>
+                                <th class="bg-info" colspan="2" style="text-align: center; color: white;">
+                                    <h4>Events
+                                    </h4>
+                                </th>
+                            </tr>
+                            <asp:Repeater ID="RepeaterEventDashBoard" runat="server">
+                                <HeaderTemplate>
+                                    <tr>
+                                        <th>Event Details</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><b><%# Eval("EMName") %></b></td>
+                                        <td><%# Eval("EMDate") %> <%# Eval("EMTime") %></td>
+                                    </tr>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <tr>
+                                        <td colspan="2">
+                                            <a href="events?isactive=events">view more.......
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </FooterTemplate>
+                            </asp:Repeater>
+                        </table>
                     </div>
-                    <table>
-                        <tr>
-                            <th class="bg-info" colspan="2" style="text-align: center; color: white;">
-                                <h4>Events
-                                </h4>
-                            </th>
-                        </tr>
-                        <asp:Repeater ID="RepeaterEventDashBoard" runat="server">
-                            <HeaderTemplate>
-                                <tr>
-                                    <th>Event Details</th>
-                                    <th>Date</th>
-                                </tr>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td><b><%# Eval("EMName") %></b></td>
-                                    <td><%# Eval("EMDate") %> <%# Eval("EMTime") %></td>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                <tr>
-                                    <td colspan="2">
-                                        <a href="events?isactive=events">view more.......
-                                        </a>
-                                    </td>
-                                </tr>
-                            </FooterTemplate>
-                        </asp:Repeater>
-                    </table>
+
                 </div>
                 <div class="col-md-6">
                     <div class="alert alert-danger" role="alert" runat="server" visible="false" id="divInquiry">
